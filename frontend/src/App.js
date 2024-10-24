@@ -13,8 +13,6 @@ import Statistics from "./pages/Statistics";
 import VisualizeData from "./pages/VisualizeData";
 
 function App() {
-  const [server, setServer] = useState({});
-
   useEffect(() => {
     fetch("/api")
       .then((response) => {
