@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.42f3bdf4.css",
+    "main.js": "/static/js/main.c04a1745.js",
+    "static/js/453.d4470efa.chunk.js": "/static/js/453.d4470efa.chunk.js",
+    "index.html": "/index.html",
+    "static/media/caret-down-svgrepo-com.svg": "/static/media/caret-down-svgrepo-com.39dd08cb8dce63446c2dd4944ea91e1c.svg",
+    "static/media/caret-up-svgrepo-com.svg": "/static/media/caret-up-svgrepo-com.7cd91f2b5e05dc9e3667374a93e07a8e.svg",
+    "main.42f3bdf4.css.map": "/static/css/main.42f3bdf4.css.map",
+    "main.c04a1745.js.map": "/static/js/main.c04a1745.js.map",
+    "453.d4470efa.chunk.js.map": "/static/js/453.d4470efa.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42f3bdf4.css",
+    "static/js/main.c04a1745.js"
+  ]
+}

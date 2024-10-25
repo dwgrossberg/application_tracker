@@ -1,7 +1,7 @@
 {
   "name": "application-tracker",
   "version": "0.1.0",
-  "proxy": "http://127.0.0.1:5000/",
+  "proxy": "https://mysterious-meadow-13231-4d55f7c54a01.herokuapp.com/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
