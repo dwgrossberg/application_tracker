@@ -1,6 +1,8 @@
 from flask import Flask
 from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
+import requests
+
 
 app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 CORS(app)
@@ -9,9 +11,8 @@ CORS(app)
 @app.route('/api', methods=['GET'])
 @cross_origin()
 def index():
-    return {
-        'tutorial': 'Flask React Heroku'
-    }
+    data = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/api')
+    return data
 
 
 @app.route('/')

@@ -21,11 +21,11 @@ const Table = () => {
             <img className="svg" src={CarrotUp} alt="Up Carrot" />
           </th>
           <th>
-            Date Posted
+            Location
             <img className="svg" src={CarrotDown} alt="Down Carrot" />
           </th>
           <th>
-            Location
+            Date Posted
             <img className="svg" src={CarrotUp} alt="Up Carrot" />
           </th>
           <th>Application Status</th>
