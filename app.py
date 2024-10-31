@@ -11,8 +11,7 @@ CORS(app)
 @app.route('/api', methods=['GET'])
 @cross_origin()
 def index():
-    data = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/api')
-    return data
+    return requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/internships').content
 
 
 @app.route('/')
