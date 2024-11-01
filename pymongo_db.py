@@ -10,7 +10,7 @@ load_dotenv(dotenv_path)
 
 class PyMongo_DB:
     def __init__(self):
-        self.CONNECTION_STRING = os.environ.get("CONNECTION_STRING")
+        self.CONNECTION_STRING = os.environ.get("MONGODB_URI")
 
     def get_database(self):
         client = MongoClient(self.CONNECTION_STRING)
