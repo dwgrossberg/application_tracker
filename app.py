@@ -19,9 +19,6 @@ app.config.from_object(Config())
 scheduler = APScheduler()
 
 
-cache = Cache()
-
-
 # Schedule updates to mongodb
 @scheduler.task('interval', id='update-listings', seconds=60,
                 misfire_grace_time=900)
