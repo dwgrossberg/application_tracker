@@ -13,17 +13,6 @@ import Statistics from "./pages/Statistics";
 import VisualizeData from "./pages/VisualizeData";
 
 function App() {
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-      })
-      .then((data) => console.log(data))
-      .then((error) => console.log(error));
-  }, []);
-
   return (
     <div className="App">
       <HashRouter>
