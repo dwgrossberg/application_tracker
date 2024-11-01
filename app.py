@@ -19,7 +19,7 @@ scheduler = APScheduler()
 
 
 # Schedule updates to mongodb
-@scheduler.task('interval', id='update-listings', minutes=90,
+@scheduler.task('interval', id='update-listings', seconds=120,
                 misfire_grace_time=900)
 def update_db():
     internships = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/internships').content
