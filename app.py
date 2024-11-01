@@ -3,6 +3,7 @@ from flask import Flask
 from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
 from pymongo_db import PyMongo_DB
+from db_cache import Cache
 from flask_apscheduler import APScheduler
 import requests
 
@@ -18,13 +19,17 @@ app.config.from_object(Config())
 scheduler = APScheduler()
 
 
+cache = Cache()
+
+
 # Schedule updates to mongodb
 @scheduler.task('interval', id='update-listings', seconds=60,
                 misfire_grace_time=900)
 def update_db():
     internships = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/internships').content
     db = PyMongo_DB()
-    db.insert_docs(json.loads(internships)[0][1:])
+    db.insert_docs(json.loads(internships)[0][1:], cache)
+    print(cache.show_data())
 
 
 scheduler.start()

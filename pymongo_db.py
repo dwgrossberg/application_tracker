@@ -11,16 +11,14 @@ load_dotenv(dotenv_path)
 class PyMongo_DB:
     def __init__(self):
         self.CONNECTION_STRING = os.environ.get("MONGODB_URI")
-        self.internship_set = set()
 
     def get_database(self):
         client = MongoClient(self.CONNECTION_STRING)
         return client['applications-internships']
 
-    def insert_docs(self, internships):
+    def insert_docs(self, internships, cache):
         db = self.get_database()
         collection = db["internships-2025"]
-        data = []
 
         for internship in internships:
             test_tuple = (
@@ -29,24 +27,20 @@ class PyMongo_DB:
                 internship[3],
                 internship[2]
                 )
-            if test_tuple in self.internship_set:
+            data = {
+                "company": internship[0],
+                "position": internship[1],
+                "link": internship[3],
+                "location": internship[2],
+                "date-posted": internship[4],
+                "applied": False,
+                "online-assessment": False,
+                "date-applied": None,
+                "interview-round": None,
+                "phone-screen": False,
+                "referral": False,
+                "result": None,
+            }
+            if not cache.check_cache(test_tuple):
                 continue
-            else:
-                self.internship_set.add(test_tuple)
-                listing = {
-                    "company": internship[0],
-                    "position": internship[1],
-                    "link": internship[3],
-                    "location": internship[2],
-                    "date-posted": internship[4],
-                    "applied": False,
-                    "online-assessment": False,
-                    "date-applied": None,
-                    "interview-round": None,
-                    "phone-screen": False,
-                    "referral": False,
-                    "result": None,
-                }
-                data.append(listing)
-
-        collection.insert_many(data)
+            collection.insert_one(data)
