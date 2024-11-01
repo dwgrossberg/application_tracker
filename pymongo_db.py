@@ -18,7 +18,7 @@ class PyMongo_DB:
 
     def insert_docs(self, internships):
         db = self.get_database()
-        internships2025 = db["internships-2025"]
+        collection = db["internships-2025"]
 
         for internship in internships:
             data = {
@@ -35,11 +35,11 @@ class PyMongo_DB:
                 "referral": False,
                 "result": None,
             }
-            if internships2025.count_documents({
+            if collection.count_documents({
                 "company": internship[0],
                 "position": internship[1],
                 "link": internship[3],
                 "location": internship[2]
-            }):
+            }, limit=1):
                 continue
-            internships2025.insert_one(data)
+            collection.insert_one(data)
