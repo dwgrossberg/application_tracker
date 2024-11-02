@@ -19,10 +19,11 @@ scheduler = APScheduler()
 
 
 # Schedule updates to mongodb
-@scheduler.task('interval', id='update-listings', seconds=60,
+@scheduler.task('interval', id='update-listings', seconds=300,
                 misfire_grace_time=900)
 def update_db():
-    internships = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/internships').content
+    url = 'https://application-scraper-4f768c7eaca5.herokuapp.com/internships'
+    internships = requests.get(url).content
     db = PyMongo_DB()
     db.insert_docs(json.loads(internships)[0][1:])
 

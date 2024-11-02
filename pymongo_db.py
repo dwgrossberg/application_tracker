@@ -11,7 +11,6 @@ load_dotenv(dotenv_path)
 class PyMongo_DB:
     def __init__(self):
         self.CONNECTION_STRING = os.environ.get("MONGODB_URI")
-        self.internship_set = set()
 
     def get_database(self):
         client = MongoClient(self.CONNECTION_STRING)
@@ -20,13 +19,12 @@ class PyMongo_DB:
     def insert_docs(self, internships):
         db = self.get_database()
         collection = db["internships-2025"]
-
         for internship in internships:
             data = {
                 "company": internship[0],
                 "position": internship[1],
-                "link": internship[3],
-                "location": internship[2],
+                "link": internship[2],
+                "location": internship[3],
                 "date-posted": internship[4],
                 "applied": False,
                 "online-assessment": False,
@@ -39,8 +37,8 @@ class PyMongo_DB:
             if collection.count_documents({
                 "company": internship[0],
                 "position": internship[1],
-                "link": internship[3],
-                "location": internship[2]
-            }, limit=1):
+                "link": internship[2],
+                "location": internship[3]
+            }):
                 continue
             collection.insert_one(data)
