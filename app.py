@@ -25,8 +25,7 @@ scheduler = APScheduler()
 def update_db():
     internships = requests.get('https://application-scraper-4f768c7eaca5.herokuapp.com/internships').content
     db = PyMongo_DB()
-    db.insert_docs(json.loads(internships)[0][1:], cache)
-    print(cache.show_data())
+    db.insert_docs(json.loads(internships)[0][1:])
 
 
 scheduler.start()
