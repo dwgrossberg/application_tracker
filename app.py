@@ -3,7 +3,6 @@ from flask import Flask
 from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
 from pymongo_db import PyMongo_DB
-from db_cache import Cache
 from flask_apscheduler import APScheduler
 import requests
 
