@@ -1,5 +1,5 @@
 import json
-from flask import Flask
+from flask import Flask, jsonify
 from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
 from pymongo_db import PyMongo_DB
@@ -37,6 +37,16 @@ CORS(app)
 @cross_origin()
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
+
+
+@app.route('/get/internships', methods=['GET'])
+@cross_origin()
+def get_data():
+    mongo = PyMongo_DB()
+    db = mongo.get_database()
+    collection = db["internships-2025"]
+    data = collection.find({}, {'_id': 0})
+    return jsonify(list(data))
 
 
 if __name__ == '__main__':

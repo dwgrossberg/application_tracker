@@ -13,6 +13,18 @@ import Statistics from "./pages/Statistics";
 import VisualizeData from "./pages/VisualizeData";
 
 function App() {
+  const [internships, setInternships] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/get/internships')
+      setInternships(res.data)
+    };
+    fetchData();
+    console.log(internships);
+  }, []);
+
+
   return (
     <div className="App">
       <HashRouter>
