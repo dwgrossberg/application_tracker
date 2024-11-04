@@ -14,14 +14,16 @@ import VisualizeData from "./pages/VisualizeData";
 
 function App() {
   const [internships, setInternships] = useState([]);
+  const [interval, setInterval] = useState(50);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('/get/internships')
-      setInternships(res.data)
-    };
-    fetchData();
-    console.log(internships);
+    fetch('/get/internships').then(response => {
+      if (response.status === 200) {
+        return response.json()
+      }
+    }).then(data => {
+      setInternships(data);
+    })
   }, []);
 
 
@@ -33,7 +35,7 @@ function App() {
           <Header />
           <Nav />
           <Routes>
-            <Route exact path="" element={<Home />} />
+            <Route exact path="/" element={<Home internships={internships} interval={interval} />} />
           </Routes>
           <Routes>
             <Route exact path="/statistics" element={<Statistics />} />

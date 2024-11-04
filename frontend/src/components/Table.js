@@ -2,7 +2,8 @@ import CarrotUp from "../assets/caret-up-svgrepo-com.svg";
 import CarrotDown from "../assets/caret-down-svgrepo-com.svg";
 import TableRow from "./TableRow";
 
-const Table = () => {
+const Table = ({internships, interval}) => {
+  console.log(internships, interval)
   return (
     <table>
       <caption>2025 Internships</caption>
@@ -21,19 +22,23 @@ const Table = () => {
             <img className="svg" src={CarrotUp} alt="Up Carrot" />
           </th>
           <th>
-            Location
+            Date Posted
             <img className="svg" src={CarrotDown} alt="Down Carrot" />
           </th>
           <th>
-            Date Posted
+            Location
             <img className="svg" src={CarrotUp} alt="Up Carrot" />
           </th>
           <th>Application Status</th>
         </tr>
       </thead>
       <tbody>
-        <TableRow />
-        <TableRow />
+        {internships.slice(0, interval).map((item, idx) => {
+            return (
+              <TableRow key={idx} data={item} />
+            )
+          })
+        }
       </tbody>
     </table>
   );

@@ -1,7 +1,7 @@
 import Table from "../components/Table";
 
-const Home = () => {
-  return <Table />;
+const Home = ({internships, interval}) => {
+  return <Table internships={internships} interval={interval} />;
 };
 
 export default Home;

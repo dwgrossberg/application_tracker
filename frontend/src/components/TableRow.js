@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "classnames";
 
-const TableRow = () => {
+const TableRow = ({data}) => {
   const [appliedStatus, setAppliedStatus] = useState(false);
 
   const handleCheck = () => {
@@ -23,12 +23,12 @@ const TableRow = () => {
       <td>
         <input type="checkbox" onChange={handleCheck}></input>
       </td>
-      <td>Meta</td>
+      <td>{data["company"]}</td>
       <td>
-        <a href="/">Backend Internship</a>
+        <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>
       </td>
-      <td>Oct 19</td>
-      <td>Mountain View, CA</td>
+      <td>{data["date-posted"]}</td>
+      <td>{data["location"]}</td>
       <td>
         <details>
           <summary>Details</summary>
