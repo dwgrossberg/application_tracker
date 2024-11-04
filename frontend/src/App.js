@@ -22,7 +22,9 @@ function App() {
         return response.json()
       }
     }).then(data => {
-      setInternships(data);
+      setInternships(data.sort((a, b) => {
+        return b["date-posted"].localeCompare(a["date-posted"])
+      }));
     })
   }, []);
 

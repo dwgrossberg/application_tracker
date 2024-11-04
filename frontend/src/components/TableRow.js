@@ -4,6 +4,21 @@ import classNames from "classnames";
 const TableRow = ({data}) => {
   const [appliedStatus, setAppliedStatus] = useState(false);
 
+  const monthNumberToString = {
+    '01': 'Jan',
+    '02': 'Feb',
+    '03': 'Mar',
+    '04': 'Apr',
+    '05': 'May',
+    '06': 'Jun',
+    '07': 'Jul',
+    '08': 'Aug',
+    '09': 'Sep',
+    '10': 'Oct',
+    '11': 'Nov',
+    '12': 'Dec',
+  }
+
   const handleCheck = () => {
     setAppliedStatus(!appliedStatus);
   };
@@ -27,7 +42,7 @@ const TableRow = ({data}) => {
       <td>
         <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>
       </td>
-      <td>{data["date-posted"]}</td>
+      <td>{monthNumberToString[data["date-posted"].slice(0,2)] + data["date-posted"].slice(2)}</td>
       <td>{data["location"]}</td>
       <td>
         <details>

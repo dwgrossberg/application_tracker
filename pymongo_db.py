@@ -2,6 +2,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from datetime import datetime
 
 
 dotenv_path = join(dirname(__file__), '.env')
@@ -25,7 +26,9 @@ class PyMongo_DB:
                 "position": internship[1],
                 "link": internship[2],
                 "location": internship[3],
-                "date-posted": internship[4],
+                "date-posted":
+                    datetime.strptime(internship[4], '%b %d').
+                    strftime('%m %d'),
                 "applied": False,
                 "online-assessment": False,
                 "date-applied": None,
