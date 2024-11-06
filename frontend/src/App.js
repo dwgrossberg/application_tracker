@@ -14,7 +14,7 @@ import VisualizeData from "./pages/VisualizeData";
 
 function App() {
   const [internships, setInternships] = useState([]);
-  const [interval, setInterval] = useState(50);
+  const [interval, setInterval] = useState(100);
 
   useEffect(() => {
     fetch('/get/internships').then(response => {
