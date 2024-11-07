@@ -147,3 +147,7 @@ select {
   font-size: 1.5em;
   font-weight: bold;
 }
+
+.searchBar {
+  max-width: 50vw;
+}

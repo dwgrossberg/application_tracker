@@ -20,6 +20,8 @@ class PyMongo_DB:
     def insert_docs(self, internships):
         db = self.get_database()
         collection = db["internships-2025"]
+        collection.create_index([("company", 1), ("position", 1), ("link", 1),
+                                 ("location", 1)], unique=True)
         for internship in internships:
             data = {
                 "company": internship[0],
@@ -44,4 +46,5 @@ class PyMongo_DB:
                 "location": internship[3]
             }):
                 continue
-            collection.insert_one(data)
+            else:
+                collection.insert_one(data)

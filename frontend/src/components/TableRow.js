@@ -40,7 +40,11 @@ const TableRow = ({data}) => {
       </td>
       <td>{data["company"]}</td>
       <td>
-        <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>
+        {data["link"] !== "Application Closed" &&
+        <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>}
+        {data["link"] === "Application Closed" &&
+        "Application Closed"
+        }
       </td>
       <td>{monthNumberToString[data["date-posted"].slice(0,2)] + data["date-posted"].slice(2)}</td>
       <td>{data["location"]}</td>

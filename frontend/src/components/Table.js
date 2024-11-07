@@ -2,8 +2,7 @@ import CarrotUp from "../assets/caret-up-svgrepo-com.svg";
 import CarrotDown from "../assets/caret-down-svgrepo-com.svg";
 import TableRow from "./TableRow";
 
-const Table = ({internships, interval}) => {
-  console.log(internships, interval)
+const Table = ({filteredInternships}) => {
   return (
     <table>
       <caption>2025 Internships</caption>
@@ -33,7 +32,7 @@ const Table = ({internships, interval}) => {
         </tr>
       </thead>
       <tbody>
-        {internships.slice(0, interval).map((item, idx) => {
+        {filteredInternships.map((item, idx) => {
             return (
               <TableRow key={idx} data={item} />
             )

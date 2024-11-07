@@ -14,7 +14,7 @@ import VisualizeData from "./pages/VisualizeData";
 
 function App() {
   const [internships, setInternships] = useState([]);
-  const [interval, setInterval] = useState(100);
+  const [filteredInternships, setFilteredInternships] = useState(internships);
 
   useEffect(() => {
     fetch('/get/internships').then(response => {
@@ -37,7 +37,12 @@ function App() {
           <Header />
           <Nav />
           <Routes>
-            <Route exact path="/" element={<Home internships={internships} interval={interval} />} />
+            <Route exact path="/" element={
+              <Home 
+              internships={internships} 
+              filteredInternships={filteredInternships} 
+              setFilteredInternships={setFilteredInternships} 
+              />} />
           </Routes>
           <Routes>
             <Route exact path="/statistics" element={<Statistics />} />
