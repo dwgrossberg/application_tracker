@@ -4,7 +4,7 @@ const SearchBar = ({internships, setFilteredInternships}) => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = ((e) => {
-        const query = e.target.value.toLowerCase();
+        const query = e.target.value;
         setSearchTerm(query);
     });
 
@@ -13,7 +13,7 @@ const SearchBar = ({internships, setFilteredInternships}) => {
             setFilteredInternships(internships)
         } else {
             const filteredData = internships.filter((item) => {
-                return item["company"].toLowerCase().includes(searchTerm)
+                return item["company"].toLowerCase().includes(searchTerm.toLowerCase())
             });
             setFilteredInternships(filteredData)
         }

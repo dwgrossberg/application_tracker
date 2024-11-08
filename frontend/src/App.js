@@ -15,6 +15,7 @@ import VisualizeData from "./pages/VisualizeData";
 function App() {
   const [internships, setInternships] = useState([]);
   const [filteredInternships, setFilteredInternships] = useState(internships);
+  const [rows, setRows] = useState(150);
 
   useEffect(() => {
     fetch('/get/internships').then(response => {
@@ -34,6 +35,7 @@ function App() {
       <HashRouter>
         <LogLink />
         <div className="body">
+        <div id="top"></div>
           <Header />
           <Nav />
           <Routes>
@@ -42,6 +44,8 @@ function App() {
               internships={internships} 
               filteredInternships={filteredInternships} 
               setFilteredInternships={setFilteredInternships} 
+              rows={rows}
+              setRows={setRows}
               />} />
           </Routes>
           <Routes>
