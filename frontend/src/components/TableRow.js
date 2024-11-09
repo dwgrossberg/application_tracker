@@ -43,7 +43,7 @@ const TableRow = ({data}) => {
         {data["link"] !== "Application Closed" &&
         <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>}
         {data["link"] === "Application Closed" &&
-        "Application Closed"
+        <s>{data["position"]}</s> 
         }
       </td>
       <td>{monthNumberToString[data["date-posted"].slice(0,2)] + data["date-posted"].slice(2)}</td>

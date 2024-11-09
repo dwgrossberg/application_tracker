@@ -28,8 +28,13 @@
 
 .svg {
   width: 35px;
+  height: 35px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+thead th {
+  min-width: 225px;
 }
 
 .applied td:not(:first-child, :last-child) {

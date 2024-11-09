@@ -14,6 +14,8 @@ const SearchBar = ({internships, setFilteredInternships}) => {
         } else {
             const filteredData = internships.filter((item) => {
                 return item["company"].toLowerCase().includes(searchTerm.toLowerCase())
+                 || item["position"].toLowerCase().includes(searchTerm.toLowerCase())
+                 || item["location"].toLowerCase().includes(searchTerm.toLowerCase())
             });
             setFilteredInternships(filteredData)
         }

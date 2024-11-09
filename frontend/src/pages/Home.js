@@ -7,8 +7,8 @@ const Home = ({internships, filteredInternships, setFilteredInternships, rows, s
   return (
     <div>
       <SearchBar internships={internships} setFilteredInternships={setFilteredInternships} />
-      <Table filteredInternships={filteredInternships} rows={rows} />
-      Showing {rows} of {internships.length} internship listings
+      <Table filteredInternships={filteredInternships} setFilteredInternships={setFilteredInternships} rows={rows} />
+      {internships.length > 0 && `Showing ${rows} of ${internships.length} internship listings`}
       <div>{rows < internships.length && <MoreRows rows={rows} setRows={setRows} internships={internships} />}</div>
     </div>
   );
