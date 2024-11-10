@@ -1,8 +1,9 @@
-import { useState } from "react";
 import classNames from "classnames";
+import { useState } from "react";
 
-const TableRow = ({data}) => {
-  const [appliedStatus, setAppliedStatus] = useState(false);
+const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
+
+  const [appliedStatus, setAppliedStatus] = useState(data["applied"])
 
   const monthNumberToString = {
     '01': 'Jan',
@@ -19,8 +20,28 @@ const TableRow = ({data}) => {
     '12': 'Dec',
   }
 
-  const handleCheck = () => {
+  const handleCheckApplied = async (e) => {
     setAppliedStatus(!appliedStatus);
+
+    const internshipToUpdate = filteredInternships.find(item => item["_id"]["$oid"] === data["_id"]["$oid"]);
+    internshipToUpdate["applied"] = !appliedStatus;
+    console.log(internshipToUpdate);
+
+    const response = await fetch(`/api/internships/update/applied/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        applied: !appliedStatus
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
   };
 
   const handleDelete = () => {
@@ -36,7 +57,7 @@ const TableRow = ({data}) => {
   return (
     <tr className={rowClassNames}>
       <td>
-        <input type="checkbox" onChange={handleCheck}></input>
+        <input type="checkbox" onChange={handleCheckApplied} checked={appliedStatus}></input>
       </td>
       <td>{data["company"]}</td>
       <td>

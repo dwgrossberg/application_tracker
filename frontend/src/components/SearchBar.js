@@ -25,7 +25,7 @@ const SearchBar = ({internships, setFilteredInternships}) => {
   return (
     <div>
         <input type="text" name="searchBar" className="searchBar" value={searchTerm}
-        placeholder="Search for internship listings by company or position" onChange={handleSearch} />
+        placeholder="Search for internship listings by company, position, or location" onChange={handleSearch} />
     </div>
   );
 };

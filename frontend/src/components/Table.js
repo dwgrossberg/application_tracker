@@ -143,7 +143,7 @@ const Table = ({filteredInternships, setFilteredInternships, rows}) => {
       <tbody>
         {filteredInternships.slice(0, rows).map((item, idx) => {
             return (
-              <TableRow key={idx} data={item} />
+              <TableRow key={idx} data={item} filteredInternships={filteredInternships} setFilteredInternships={setFilteredInternships} />
             )
           })
         }

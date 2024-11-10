@@ -18,11 +18,12 @@ function App() {
   const [rows, setRows] = useState(150);
 
   useEffect(() => {
-    fetch('/get/internships').then(response => {
+    fetch('/api/internships').then(response => {
       if (response.status === 200) {
         return response.json()
       }
     }).then(data => {
+      console.log(data);
       setInternships(data.sort((a, b) => {
         return b["date-posted"].localeCompare(a["date-posted"])
       }));
