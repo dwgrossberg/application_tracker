@@ -24,7 +24,8 @@ function App() {
       }
     }).then(data => {
       console.log(data);
-      setInternships(data.sort((a, b) => {
+      const dataToKeep = data.filter(item => item["remove"] === false);
+      setInternships(dataToKeep.sort((a, b) => {
         return b["date-posted"].localeCompare(a["date-posted"])
       }));
     })

@@ -38,6 +38,7 @@ class PyMongo_DB:
                 "phone-screen": False,
                 "referral": False,
                 "result": None,
+                "removed": False
             }
             if collection.count_documents({
                 "company": internship[0],
