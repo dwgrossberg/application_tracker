@@ -43,6 +43,7 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 
+# Serve data to frontend
 @app.route('/api/internships', methods=['GET'])
 @cross_origin()
 def get_data():
@@ -50,12 +51,38 @@ def get_data():
     return json.loads(json_util.dumps(data))
 
 
-@app.route(
-    '/api/internships/update/applied/<_id>',
-    methods=['PUT']
-    )
+# Update internship data points
+@app.route('/api/internships/update/<_id>', methods=['PUT'])
 @cross_origin()
-def update_item(_id):
+def update_applied(_id):
+    try:
+        data = request.get_json()
+        collection.update_one(
+            {'_id': ObjectId(_id)},
+            {'$set': data}
+            )
+        return jsonify({'message': 'Item updated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 404
+
+
+@app.route('/api/internships/update/date_applied/<_id>', methods=['PUT'])
+@cross_origin()
+def update_date_applied(_id):
+    try:
+        data = request.get_json()
+        collection.update_one(
+            {'_id': ObjectId(_id)},
+            {'$set': data}
+            )
+        return jsonify({'message': 'Item updated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 404
+
+
+@app.route('/api/internships/update/referral/<_id>', methods=['PUT'])
+@cross_origin()
+def update_referral(_id):
     try:
         data = request.get_json()
         collection.update_one(

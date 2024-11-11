@@ -3,7 +3,13 @@ import { useState } from "react";
 
 const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
 
-  const [appliedStatus, setAppliedStatus] = useState(data["applied"])
+  const [appliedStatus, setAppliedStatus] = useState(data["applied"]);
+  const [dateApplied, setDateApplied] = useState(data["date-applied"]);
+  const [referral, setReferral] = useState(data["referral"]);
+  const [OA, setOA] = useState(data["online-assessment"]);
+  const [phoneScreen, setPhoneScreen] = useState(data["phone-screen"]);
+  const [interviewRound, setInterviewRound] = useState(data["interview-round"]);
+  const [result, setResult] = useState(data["result"]);
 
   const monthNumberToString = {
     '01': 'Jan',
@@ -23,14 +29,158 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   const handleCheckApplied = async (e) => {
     setAppliedStatus(!appliedStatus);
 
-    const internshipToUpdate = filteredInternships.find(item => item["_id"]["$oid"] === data["_id"]["$oid"]);
-    internshipToUpdate["applied"] = !appliedStatus;
-    console.log(internshipToUpdate);
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
 
-    const response = await fetch(`/api/internships/update/applied/${data["_id"]["$oid"]}`, {
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
       method: "PUT",
       body: JSON.stringify({
         applied: !appliedStatus
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handleDateApplied = async (e) => {
+    setDateApplied(e.target.value);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        "date-applied": e.target.value
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handleReferral = async (e) => {
+    setReferral(!referral);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        referral: !referral
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handleOA = async (e) => {
+    setOA(!OA);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        "online-assessment": !OA
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handlePhoneScreen = async (e) => {
+    setPhoneScreen(!phoneScreen);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        "phone-screen": !phoneScreen
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handleInterviewRound = async (e) => {
+    setInterviewRound(e.target.value);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        "interview-round": e.target.value
+      }),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+  };
+
+  const handleResult = async (e) => {
+    setResult(e.target.value);
+
+    setFilteredInternships(prev => prev.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item));
+
+    console.log(filteredInternships);
+
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        "result": e.target.value
       }),
       headers: { "Content-Type": "application/json" }
     });
@@ -74,23 +224,23 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
           <summary>Details</summary>
           <div className="detailRow">
             <label htmlFor="dateApplied">Date Applied</label>
-            <input className="detailBox" name="dateApplied" type="date" />
+            <input className="detailBox" name="dateApplied" type="date" onChange={handleDateApplied} value={dateApplied} />
           </div>
           <div className="detailRow">
             <label htmlFor="referral">Referral</label>
-            <input type="checkbox" name="referral"></input>
+            <input type="checkbox" name="referral" onChange={handleReferral} checked={referral}></input>
           </div>
           <div className="detailRow">
             <label htmlFor="onlineAssessment">Online Assessment</label>
-            <input type="checkbox" name="onlineAssessment"></input>
+            <input type="checkbox" name="onlineAssessment" onChange={handleOA} checked={OA}></input>
           </div>
           <div className="detailRow">
             <label htmlFor="phoneScreen">Phone Screen</label>
-            <input type="checkbox" name="phoneScreen"></input>
+            <input type="checkbox" name="phoneScreen" onChange={handlePhoneScreen} checked={phoneScreen}></input>
           </div>
           <div className="detailRow">
             <label htmlFor="interview">Interview Round</label>
-            <select className="detailBox" name="interview">
+            <select className="detailBox" name="interview" onChange={handleInterviewRound} value={interviewRound}>
               <option></option>
               <option>One</option>
               <option>Two</option>
@@ -101,7 +251,7 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
           </div>
           <div className="detailRow">
             <label htmlFor="result">Result</label>
-            <select className="detailBox" name="interview">
+            <select className="detailBox" name="interview" onChange={handleResult} value={result}>
               <option></option>
               <option>No Response</option>
               <option>Rejection</option>
