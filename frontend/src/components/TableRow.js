@@ -26,195 +26,68 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
     '12': 'Dec',
   }
 
-  const handleCheckApplied = async (e) => {
+  const updateData = async (data) => {
+    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    });
+    if (response.status === 200) {
+      console.log(`Information edited.`);
+    } else {
+      const errMessage = await response.json();
+      console.log(
+        `Unable to edit information: ${response.status}. ${errMessage.Error}`
+      );
+    }
+    console.log(filteredInternships);
+  }
+
+  const handleCheckApplied = (e) => {
     setAppliedStatus(!appliedStatus);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        applied: !appliedStatus
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"applied": !appliedStatus})
   };
 
-  const handleDateApplied = async (e) => {
+  const handleDateApplied = (e) => {
     setDateApplied(e.target.value);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "date-applied": e.target.value
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"date-applied": e.target.value});
   };
 
-  const handleReferral = async (e) => {
+  const handleReferral = (e) => {
     setReferral(!referral);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        referral: !referral
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"referral": !referral})
   };
 
-  const handleOA = async (e) => {
+  const handleOA = (e) => {
     setOA(!OA);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "online-assessment": !OA
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"online-assessment": !OA})
   };
 
-  const handlePhoneScreen = async (e) => {
+  const handlePhoneScreen = (e) => {
     setPhoneScreen(!phoneScreen);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "phone-screen": !phoneScreen
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"phone-screen": !phoneScreen})
   };
 
-  const handleInterviewRound = async (e) => {
+  const handleInterviewRound = (e) => {
     setInterviewRound(e.target.value);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "interview-round": e.target.value
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"interview-round": e.target.value})
   };
 
-  const handleResult = async (e) => {
+  const handleResult = (e) => {
     setResult(e.target.value);
-
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "result": e.target.value
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"result": e.target.value})
   };
   
-  const handleRemove = async (e) => {
-
+  const handleRemove = (e) => {
     setFilteredInternships(filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]));
-
-    console.log(filteredInternships);
-
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        "remove": true
-      }),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
-    }
+    updateData({"remove": true})
   };
 
   const confirmDelete = () => {
