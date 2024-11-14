@@ -11,11 +11,31 @@ import Login from "./pages/Login";
 import NewAccount from "./pages/NewAccount";
 import Statistics from "./pages/Statistics";
 import VisualizeData from "./pages/VisualizeData";
+import { Heap } from 'heap-js';
 
 function App() {
   const [internships, setInternships] = useState([]);
   const [filteredInternships, setFilteredInternships] = useState(internships);
   const [rows, setRows] = useState(150);
+  const [applications, setApplications] = useState(0);
+  const [OAs, setOAs] = useState(0);
+  const [interviews, setInterviews] = useState(0);
+  const [topCompanies, setTopCompanies] = useState([]);
+  const [topPositions, setTopPositions] = useState([]);
+  const [topLocations, setTopLocations] = useState([]);
+
+  const sortApps = (totalApps, item) => {
+    const freq = {}
+    for (const app of totalApps) {
+      if (freq[app[item]]) {
+        freq[app[item]]++;
+      } else {
+        freq[app[item]] = 1;
+      }
+    }
+    const sortedFreq = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+    return sortedFreq
+  }
 
   useEffect(() => {
     fetch('/api/internships').then(response => {
@@ -30,6 +50,16 @@ function App() {
       }));
     })
   }, []);
+
+  useEffect(() => {
+    const totalApps = filteredInternships.filter(item => item["applied"] === true)
+    setApplications(totalApps.length);
+    setOAs(filteredInternships.filter(item => item["online-assessment"] === true).length);
+    setInterviews(filteredInternships.filter(item => item["interview-round"] !== null).length);
+    setTopCompanies(sortApps(totalApps, "company"));
+    setTopPositions(sortApps(totalApps, "position"));
+    setTopLocations(sortApps(totalApps, "location"));
+  }, [filteredInternships])
 
 
   return (
@@ -51,7 +81,15 @@ function App() {
               />} />
           </Routes>
           <Routes>
-            <Route exact path="/statistics" element={<Statistics />} />
+            <Route exact path="/statistics" element={
+              <Statistics 
+              applications={applications} 
+              OAs={OAs}
+              interviews={interviews}
+              topCompanies={topCompanies}
+              topPositions={topPositions}
+              topLocations={topLocations}
+              />} />
           </Routes>
           <Routes>
             <Route

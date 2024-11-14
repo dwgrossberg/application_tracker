@@ -27,23 +27,30 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   }
 
   const updateData = async (data) => {
-    const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    });
-    if (response.status === 200) {
-      console.log(`Information edited.`);
-    } else {
-      const errMessage = await response.json();
-      console.log(
-        `Unable to edit information: ${response.status}. ${errMessage.Error}`
-      );
+    try {
+      const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" }
+      });
+      if (response.status === 200) {
+        console.log(`Information edited.`);
+      } else {
+        const errMessage = await response.json();
+        console.log(
+          `Unable to edit information: ${response.status}. ${errMessage.Error}`
+        );
+      }
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error(e.message);
     }
     console.log(filteredInternships);
   }
 
-  const handleCheckApplied = (e) => {
+  const handleCheckApplied = () => {
     setAppliedStatus(!appliedStatus);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
     updateData({"applied": !appliedStatus})
@@ -55,19 +62,19 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
     updateData({"date-applied": e.target.value});
   };
 
-  const handleReferral = (e) => {
+  const handleReferral = () => {
     setReferral(!referral);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
     updateData({"referral": !referral})
   };
 
-  const handleOA = (e) => {
+  const handleOA = () => {
     setOA(!OA);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
     updateData({"online-assessment": !OA})
   };
 
-  const handlePhoneScreen = (e) => {
+  const handlePhoneScreen = () => {
     setPhoneScreen(!phoneScreen);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
     updateData({"phone-screen": !phoneScreen})
@@ -85,7 +92,7 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
     updateData({"result": e.target.value})
   };
   
-  const handleRemove = (e) => {
+  const handleRemove = () => {
     setFilteredInternships(filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]));
     updateData({"remove": true})
   };
