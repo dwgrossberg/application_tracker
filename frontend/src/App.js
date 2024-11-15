@@ -17,6 +17,7 @@ function App() {
   const [internships, setInternships] = useState([]);
   const [filteredInternships, setFilteredInternships] = useState(internships);
   const [rows, setRows] = useState(150);
+  const [totalApps, setTotalApps] = useState([]);
   const [applications, setApplications] = useState(0);
   const [OAs, setOAs] = useState(0);
   const [interviews, setInterviews] = useState(0);
@@ -52,14 +53,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const totalApps = filteredInternships.filter(item => item["applied"] === true)
+    setTotalApps(filteredInternships.filter(item => item["applied"] === true));
+  }, [filteredInternships])
+
+  useEffect(() => {
     setApplications(totalApps.length);
-    setOAs(filteredInternships.filter(item => item["online-assessment"] === true).length);
-    setInterviews(filteredInternships.filter(item => item["interview-round"] !== null).length);
+    setOAs(totalApps.filter(item => item["online-assessment"] === true).length);
+    setInterviews(totalApps.filter(item => item["interview-round"] !== null).length);
     setTopCompanies(sortApps(totalApps, "company"));
     setTopPositions(sortApps(totalApps, "position"));
     setTopLocations(sortApps(totalApps, "location"));
-  }, [filteredInternships])
+  }, [totalApps])
 
 
   return (
@@ -95,7 +99,7 @@ function App() {
             <Route
               exact
               path="/statistics/visualize"
-              element={<VisualizeData />}
+              element={<VisualizeData totalApps={totalApps} />}
             />
           </Routes>
           <Routes>
