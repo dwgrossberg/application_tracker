@@ -1,7 +1,6 @@
 import MoreRows from "../components/MoreRows";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
-import { HashLink } from 'react-router-hash-link';
 
 const Home = ({internships, filteredInternships, setFilteredInternships, rows, setRows}) => {
   return (

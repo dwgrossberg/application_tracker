@@ -11,7 +11,6 @@ import Login from "./pages/Login";
 import NewAccount from "./pages/NewAccount";
 import Statistics from "./pages/Statistics";
 import VisualizeData from "./pages/VisualizeData";
-import { Heap } from 'heap-js';
 
 function App() {
   const [internships, setInternships] = useState([]);
@@ -46,9 +45,12 @@ function App() {
     }).then(data => {
       console.log(data);
       const dataToKeep = data.filter(item => item["remove"] === false);
-      setInternships(dataToKeep.sort((a, b) => {
+      console.log(dataToKeep);
+      const sortedDataToKeep = dataToKeep.sort((a, b) => {
         return b["date-posted"].localeCompare(a["date-posted"])
-      }));
+      });
+      setInternships(sortedDataToKeep);
+      setFilteredInternships(sortedDataToKeep);
     })
   }, []);
 

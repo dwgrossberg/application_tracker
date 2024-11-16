@@ -26,9 +26,9 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
     '12': 'Dec',
   }
 
-  const updateData = async (data) => {
+  const updateData = async (id, data) => {
     try {
-      const response = await fetch(`/api/internships/update/${data["_id"]["$oid"]}`, {
+      const response = await fetch(`/api/internships/update/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" }
@@ -53,54 +53,54 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   const handleCheckApplied = () => {
     setAppliedStatus(!appliedStatus);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
-    updateData({"applied": !appliedStatus})
+    updateData(data["_id"]["$oid"], {"applied": !appliedStatus})
   };
 
   const handleDateApplied = (e) => {
     setDateApplied(e.target.value);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item));
-    updateData({"date-applied": e.target.value});
+    updateData(data["_id"]["$oid"], {"date-applied": e.target.value});
   };
 
   const handleReferral = () => {
     setReferral(!referral);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
-    updateData({"referral": !referral})
+    updateData(data["_id"]["$oid"], {"referral": !referral})
   };
 
   const handleOA = () => {
     setOA(!OA);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
-    updateData({"online-assessment": !OA})
+    updateData(data["_id"]["$oid"], {"online-assessment": !OA})
   };
 
   const handlePhoneScreen = () => {
     setPhoneScreen(!phoneScreen);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
-    updateData({"phone-screen": !phoneScreen})
+    updateData(data["_id"]["$oid"], {"phone-screen": !phoneScreen})
   };
 
   const handleInterviewRound = (e) => {
     setInterviewRound(e.target.value);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item));
-    updateData({"interview-round": e.target.value})
+    updateData(data["_id"]["$oid"], {"interview-round": e.target.value})
   };
 
   const handleResult = (e) => {
     setResult(e.target.value);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item));
-    updateData({"result": e.target.value})
+    updateData(data["_id"]["$oid"], {"result": e.target.value})
   };
   
   const handleRemove = () => {
     setFilteredInternships(filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]));
-    updateData({"remove": true})
+    updateData(data["_id"]["$oid"], {"remove": true})
   };
 
   const confirmDelete = () => {
     if (window.confirm("Are you sure you want to delete this listing? Doing so will remove any linked data from your account.")) {
       console.log('confirmed');
-      handleRemove()
+      handleRemove();
     }
   };
 
