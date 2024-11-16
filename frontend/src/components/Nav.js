@@ -1,7 +1,11 @@
 import { NavLink } from "react-router-dom";
 
 
-const Nav = (() => {
+const Nav = (({internships, setFilteredInternships}) => {
+    const handleClick = () => {
+        setFilteredInternships(internships)
+    }
+
     return (
         <nav>
             <ul>
@@ -11,7 +15,7 @@ const Nav = (() => {
                     </li>
                 </NavLink>
                 <NavLink to="/statistics">
-                    <li>
+                    <li onClick={handleClick}>
                         My Applications
                     </li>
                 </NavLink>

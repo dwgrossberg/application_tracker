@@ -74,7 +74,7 @@ function App() {
         <div className="body">
         <div id="top"></div>
           <Header />
-          <Nav />
+          <Nav internships={internships} setFilteredInternships={setFilteredInternships} />
           <Routes>
             <Route exact path="/" element={
               <Home 

@@ -11,7 +11,7 @@ const Home = ({internships, filteredInternships, setFilteredInternships, setInte
         setFilteredInternships={setFilteredInternships}
         setInternships={setInternships}
         rows={rows} />
-      {filteredInternships.length > 0 && `Showing ${rows} of ${filteredInternships.length} internship listings`}
+      {filteredInternships.length > 0 && `Showing ${rows > filteredInternships.length ? filteredInternships.length : rows} of ${filteredInternships.length} internship listings`}
       <div>{rows < filteredInternships.length && <MoreRows rows={rows} setRows={setRows} filteredInternships={filteredInternships} />}</div>
     </div>
   );

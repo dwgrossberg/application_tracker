@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TableRow = ({data, filteredInternships, setFilteredInternships, setInternships}) => {
 
@@ -10,6 +10,16 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
   const [phoneScreen, setPhoneScreen] = useState(data["phone-screen"]);
   const [interviewRound, setInterviewRound] = useState(data["interview-round"]);
   const [result, setResult] = useState(data["result"]);
+
+  useEffect(() => {
+    setAppliedStatus(data["applied"]);
+    setDateApplied(data["date-applied"]);
+    setReferral(data["referral"]);
+    setOA(data["online-assessment"]);
+    setPhoneScreen(data["phone-screen"]);
+    setInterviewRound(data["interview-round"]);
+    setResult(data["result"]);
+  }, [filteredInternships, data]);
 
   const monthNumberToString = {
     '01': 'Jan',
@@ -47,7 +57,6 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
       }
       console.error(e.message);
     }
-    console.log(filteredInternships);
   }
 
   const handleCheckApplied = () => {
