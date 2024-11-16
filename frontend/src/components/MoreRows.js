@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 
-const MoreRows = ({rows, setRows, internships}) => {
+const MoreRows = ({rows, setRows, filteredInternships}) => {
     const handleClick = () => {
-        if (rows + 100 < internships.length) {
+        if (rows + 100 < filteredInternships.length) {
             setRows(rows + 150);
         } else {
-            setRows(internships.length)
+            setRows(filteredInternships.length)
         }
     }
   return (

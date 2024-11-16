@@ -19,7 +19,7 @@ const SearchBar = ({internships, setFilteredInternships}) => {
             });
             setFilteredInternships(filteredData)
         }
-    }, [searchTerm, internships])
+    }, [searchTerm])
 
 
   return (

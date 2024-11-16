@@ -5,7 +5,7 @@ import CaretDownGrey from "../assets/caret-down-grey.svg"
 import TableRow from "./TableRow";
 import { useState } from "react";
 
-const Table = ({filteredInternships, setFilteredInternships, rows}) => {
+const Table = ({filteredInternships, setFilteredInternships, setInternships, rows}) => {
   const [filterBy, setFilterBy] = useState("date-posted");
 
   const sortByApplied = (e) => {
@@ -143,7 +143,7 @@ const Table = ({filteredInternships, setFilteredInternships, rows}) => {
       <tbody>
         {filteredInternships.slice(0, rows).map((item, idx) => {
             return (
-              <TableRow key={idx} data={item} filteredInternships={filteredInternships} setFilteredInternships={setFilteredInternships} />
+              <TableRow key={idx} data={item} filteredInternships={filteredInternships} setFilteredInternships={setFilteredInternships} setInternships={setInternships} />
             )
           })
         }

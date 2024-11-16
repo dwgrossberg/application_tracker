@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 
-const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
+const TableRow = ({data, filteredInternships, setFilteredInternships, setInternships}) => {
 
   const [appliedStatus, setAppliedStatus] = useState(data["applied"]);
   const [dateApplied, setDateApplied] = useState(data["date-applied"]);
@@ -51,50 +51,65 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   }
 
   const handleCheckApplied = () => {
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"applied": !appliedStatus});
     setAppliedStatus(!appliedStatus);
   };
 
   const handleDateApplied = (e) => {
     setDateApplied(e.target.value);
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"date-applied": e.target.value});
   };
 
   const handleReferral = () => {
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"referral": !referral});
     setReferral(!referral);
-
   };
 
   const handleOA = () => {
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"online-assessment": !OA});
     setOA(!OA);
   };
 
   const handlePhoneScreen = () => {
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"phone-screen": !phoneScreen});
     setPhoneScreen(!phoneScreen);
   };
 
   const handleInterviewRound = (e) => {
     setInterviewRound(e.target.value);
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"interview-round": e.target.value})
   };
 
   const handleResult = (e) => {
     setResult(e.target.value);
-    setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item));
+    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"result": e.target.value})
   };
   
   const handleRemove = () => {
-    setFilteredInternships(filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]));
+    const update = filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]);
+    setFilteredInternships(update);
+    setInternships(update);
     updateData(data["_id"]["$oid"], {"remove": true})
   };
 

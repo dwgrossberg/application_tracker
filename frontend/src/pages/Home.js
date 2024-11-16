@@ -2,13 +2,17 @@ import MoreRows from "../components/MoreRows";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";
 
-const Home = ({internships, filteredInternships, setFilteredInternships, rows, setRows}) => {
+const Home = ({internships, filteredInternships, setFilteredInternships, setInternships, rows, setRows}) => {
   return (
     <div>
       <SearchBar internships={internships} setFilteredInternships={setFilteredInternships} />
-      <Table filteredInternships={filteredInternships} setFilteredInternships={setFilteredInternships} rows={rows} />
-      {internships.length > 0 && `Showing ${rows} of ${internships.length} internship listings`}
-      <div>{rows < internships.length && <MoreRows rows={rows} setRows={setRows} internships={internships} />}</div>
+      <Table 
+        filteredInternships={filteredInternships}
+        setFilteredInternships={setFilteredInternships}
+        setInternships={setInternships}
+        rows={rows} />
+      {filteredInternships.length > 0 && `Showing ${rows} of ${filteredInternships.length} internship listings`}
+      <div>{rows < filteredInternships.length && <MoreRows rows={rows} setRows={setRows} filteredInternships={filteredInternships} />}</div>
     </div>
   );
 };
