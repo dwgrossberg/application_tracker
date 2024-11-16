@@ -51,9 +51,9 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   }
 
   const handleCheckApplied = () => {
-    setAppliedStatus(!appliedStatus);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item));
-    updateData(data["_id"]["$oid"], {"applied": !appliedStatus})
+    updateData(data["_id"]["$oid"], {"applied": !appliedStatus});
+    setAppliedStatus(!appliedStatus);
   };
 
   const handleDateApplied = (e) => {
@@ -63,21 +63,22 @@ const TableRow = ({data, filteredInternships, setFilteredInternships}) => {
   };
 
   const handleReferral = () => {
-    setReferral(!referral);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item));
-    updateData(data["_id"]["$oid"], {"referral": !referral})
+    updateData(data["_id"]["$oid"], {"referral": !referral});
+    setReferral(!referral);
+
   };
 
   const handleOA = () => {
-    setOA(!OA);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item));
-    updateData(data["_id"]["$oid"], {"online-assessment": !OA})
+    updateData(data["_id"]["$oid"], {"online-assessment": !OA});
+    setOA(!OA);
   };
 
   const handlePhoneScreen = () => {
-    setPhoneScreen(!phoneScreen);
     setFilteredInternships(filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item));
-    updateData(data["_id"]["$oid"], {"phone-screen": !phoneScreen})
+    updateData(data["_id"]["$oid"], {"phone-screen": !phoneScreen});
+    setPhoneScreen(!phoneScreen);
   };
 
   const handleInterviewRound = (e) => {
