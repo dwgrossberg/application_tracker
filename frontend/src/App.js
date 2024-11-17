@@ -25,77 +25,102 @@ function App() {
   const [topLocations, setTopLocations] = useState([]);
 
   const sortApps = (totalApps, item) => {
-    const freq = {}
+    const freq = {};
     for (const app of totalApps) {
-      if (freq[app[item]]) {
-        freq[app[item]]++;
+      let elem = app[item];
+      if (item === "position" || item === "company" || item === "location") {
+        elem = elem.trim();
+      }
+      if (freq[elem]) {
+        freq[elem]++;
       } else {
-        freq[app[item]] = 1;
+        freq[elem] = 1;
       }
     }
     const sortedFreq = Object.entries(freq).sort((a, b) => b[1] - a[1]);
-    return sortedFreq
-  }
+    return sortedFreq;
+  };
 
   useEffect(() => {
-    fetch('/api/internships').then(response => {
-      if (response.status === 200) {
-        return response.json()
-      }
-    }).then(data => {
-      console.log(data);
-      const dataToKeep = data.filter(item => item["remove"] === false);
-      const sortedDataToKeep = dataToKeep.sort((a, b) => {
-        return b["date-posted"].localeCompare(a["date-posted"])
+    fetch("/api/internships")
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        const dataToKeep = data.filter((item) => item["remove"] === false);
+        const sortedDataToKeep = dataToKeep.sort((a, b) => {
+          return b["date-posted"].localeCompare(a["date-posted"]);
+        });
+        setInternships(sortedDataToKeep);
+        setFilteredInternships(sortedDataToKeep);
       });
-      setInternships(sortedDataToKeep);
-      setFilteredInternships(sortedDataToKeep);
-    })
   }, []);
 
   useEffect(() => {
-    setTotalApps(filteredInternships.filter(item => item["applied"] === true));
-  }, [filteredInternships])
+    setTotalApps(
+      filteredInternships.filter((item) => item["applied"] === true)
+    );
+  }, [filteredInternships]);
 
   useEffect(() => {
     setApplications(totalApps.length);
-    setOAs(totalApps.filter(item => item["online-assessment"] === true).length);
-    setInterviews(totalApps.filter(item => item["interview-round"] !== null).length);
+    setOAs(
+      totalApps.filter((item) => item["online-assessment"] === true).length
+    );
+    setInterviews(
+      totalApps.filter((item) => item["interview-round"] !== null).length
+    );
     setTopCompanies(sortApps(totalApps, "company"));
     setTopPositions(sortApps(totalApps, "position"));
     setTopLocations(sortApps(totalApps, "location"));
-  }, [totalApps])
-
+    console.log(topPositions);
+  }, [totalApps]);
 
   return (
     <div className="App">
       <HashRouter>
         <LogLink />
         <div className="body">
-        <div id="top"></div>
+          <div id="top"></div>
           <Header />
-          <Nav internships={internships} setFilteredInternships={setFilteredInternships} />
+          <Nav
+            internships={internships}
+            setFilteredInternships={setFilteredInternships}
+          />
           <Routes>
-            <Route exact path="/" element={
-              <Home 
-              internships={internships} 
-              filteredInternships={filteredInternships} 
-              setFilteredInternships={setFilteredInternships} 
-              setInternships={setInternships}
-              rows={rows}
-              setRows={setRows}
-              />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Home
+                  internships={internships}
+                  filteredInternships={filteredInternships}
+                  setFilteredInternships={setFilteredInternships}
+                  setInternships={setInternships}
+                  rows={rows}
+                  setRows={setRows}
+                />
+              }
+            />
           </Routes>
           <Routes>
-            <Route exact path="/statistics" element={
-              <Statistics 
-              applications={applications} 
-              OAs={OAs}
-              interviews={interviews}
-              topCompanies={topCompanies}
-              topPositions={topPositions}
-              topLocations={topLocations}
-              />} />
+            <Route
+              exact
+              path="/statistics"
+              element={
+                <Statistics
+                  applications={applications}
+                  OAs={OAs}
+                  interviews={interviews}
+                  topCompanies={topCompanies}
+                  topPositions={topPositions}
+                  topLocations={topLocations}
+                />
+              }
+            />
           </Routes>
           <Routes>
             <Route

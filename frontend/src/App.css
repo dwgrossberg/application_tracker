@@ -34,7 +34,7 @@
 }
 
 thead th {
-  min-width: 225px;
+  min-width: 200px;
 }
 
 .applied td:not(:first-child, :last-child) {
@@ -132,7 +132,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 5vw;
-  width: 25vw;
+  width: 30vw;
   justify-content: space-between;
   align-items: center;
 }

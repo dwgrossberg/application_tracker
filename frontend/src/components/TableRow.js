@@ -1,13 +1,22 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 
-const TableRow = ({data, filteredInternships, setFilteredInternships, setInternships}) => {
-
+const TableRow = ({
+  data,
+  filteredInternships,
+  setFilteredInternships,
+  setInternships,
+  openDetails,
+  setOpenDetails,
+}) => {
   const [appliedStatus, setAppliedStatus] = useState(data["applied"]);
   const [dateApplied, setDateApplied] = useState(data["date-applied"]);
   const [referral, setReferral] = useState(data["referral"]);
   const [OA, setOA] = useState(data["online-assessment"]);
   const [phoneScreen, setPhoneScreen] = useState(data["phone-screen"]);
+  const [digitalInterview, setDigitalInterview] = useState(
+    data["digital-interview"]
+  );
   const [interviewRound, setInterviewRound] = useState(data["interview-round"]);
   const [result, setResult] = useState(data["result"]);
 
@@ -17,31 +26,32 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
     setReferral(data["referral"]);
     setOA(data["online-assessment"]);
     setPhoneScreen(data["phone-screen"]);
+    setDigitalInterview(data["digital-interview"]);
     setInterviewRound(data["interview-round"]);
     setResult(data["result"]);
   }, [filteredInternships, data]);
 
   const monthNumberToString = {
-    '01': 'Jan',
-    '02': 'Feb',
-    '03': 'Mar',
-    '04': 'Apr',
-    '05': 'May',
-    '06': 'Jun',
-    '07': 'Jul',
-    '08': 'Aug',
-    '09': 'Sep',
-    '10': 'Oct',
-    '11': 'Nov',
-    '12': 'Dec',
-  }
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
+  };
 
   const updateData = async (id, data) => {
     try {
       const response = await fetch(`/api/internships/update/${id}`, {
         method: "PUT",
         body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
       if (response.status === 200) {
         console.log(`Information edited.`);
@@ -57,74 +67,135 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
       }
       console.error(e.message);
     }
-  }
+  };
+
+  const toggleDetails = (rowId) => {
+    setOpenDetails((prevOpenDetails) => ({
+      ...prevOpenDetails,
+      [rowId]: !prevOpenDetails[rowId],
+    }));
+  };
 
   const handleCheckApplied = () => {
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "applied": !appliedStatus } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, applied: !appliedStatus }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"applied": !appliedStatus});
+    updateData(data["_id"]["$oid"], { applied: !appliedStatus });
     setAppliedStatus(!appliedStatus);
   };
 
   const handleDateApplied = (e) => {
     setDateApplied(e.target.value);
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "date-applied": e.target.value } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, "date-applied": e.target.value }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"date-applied": e.target.value});
+    updateData(data["_id"]["$oid"], { "date-applied": e.target.value });
   };
 
   const handleReferral = () => {
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "referral": !referral } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, referral: !referral }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"referral": !referral});
+    updateData(data["_id"]["$oid"], { referral: !referral });
     setReferral(!referral);
   };
 
   const handleOA = () => {
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "online-assessment": !OA } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, "online-assessment": !OA }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"online-assessment": !OA});
+    updateData(data["_id"]["$oid"], { "online-assessment": !OA });
     setOA(!OA);
   };
 
   const handlePhoneScreen = () => {
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "phone-screen": !phoneScreen } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, "phone-screen": !phoneScreen }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"phone-screen": !phoneScreen});
+    updateData(data["_id"]["$oid"], { "phone-screen": !phoneScreen });
     setPhoneScreen(!phoneScreen);
+  };
+
+  const handleDigitalInterview = () => {
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, "digital-interview": !digitalInterview }
+          : item
+      );
+    setFilteredInternships(update);
+    setInternships(update);
+    updateData(data["_id"]["$oid"], { "digital-interview": !digitalInterview });
+    setDigitalInterview(!digitalInterview);
   };
 
   const handleInterviewRound = (e) => {
     setInterviewRound(e.target.value);
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "interview-round": e.target.value } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, "interview-round": e.target.value }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"interview-round": e.target.value})
+    updateData(data["_id"]["$oid"], { "interview-round": e.target.value });
   };
 
   const handleResult = (e) => {
     setResult(e.target.value);
-    const update = filteredInternships => filteredInternships.map(item => item["_id"]["$oid"] === data["_id"]["$oid"] ? { ...item, "result": e.target.value } : item);
+    const update = (filteredInternships) =>
+      filteredInternships.map((item) =>
+        item["_id"]["$oid"] === data["_id"]["$oid"]
+          ? { ...item, result: e.target.value }
+          : item
+      );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"result": e.target.value})
+    updateData(data["_id"]["$oid"], { result: e.target.value });
   };
-  
+
   const handleRemove = () => {
-    const update = filteredInternships.filter(item => item["_id"]["$oid"] !== data["_id"]["$oid"]);
+    const update = filteredInternships.filter(
+      (item) => item["_id"]["$oid"] !== data["_id"]["$oid"]
+    );
     setFilteredInternships(update);
     setInternships(update);
-    updateData(data["_id"]["$oid"], {"remove": true})
+    updateData(data["_id"]["$oid"], { remove: true });
   };
 
   const confirmDelete = () => {
-    if (window.confirm("Are you sure you want to delete this listing? Doing so will remove any linked data from your account.")) {
-      console.log('confirmed');
+    if (
+      window.confirm(
+        "Are you sure you want to delete this listing? Doing so will remove any linked data from your account."
+      )
+    ) {
+      console.log("confirmed");
       handleRemove();
     }
   };
@@ -136,40 +207,85 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
   return (
     <tr className={rowClassNames}>
       <td>
-        <input type="checkbox" onChange={handleCheckApplied} checked={appliedStatus}></input>
+        <input
+          type="checkbox"
+          onChange={handleCheckApplied}
+          checked={appliedStatus}
+        ></input>
       </td>
       <td>{data["company"]}</td>
       <td>
-        {data["link"] !== "Application Closed" &&
-        <a href={data["link"]} target="_blank" rel="noopener noreferrer">{data["position"]}</a>}
-        {data["link"] === "Application Closed" &&
-        <s>{data["position"]}</s> 
-        }
+        {data["link"] !== "Application Closed" && (
+          <a href={data["link"]} target="_blank" rel="noopener noreferrer">
+            {data["position"]}
+          </a>
+        )}
+        {data["link"] === "Application Closed" && <s>{data["position"]}</s>}
       </td>
-      <td>{monthNumberToString[data["date-posted"].slice(0,2)] + data["date-posted"].slice(2)}</td>
+      <td>
+        {monthNumberToString[data["date-posted"].slice(0, 2)] +
+          data["date-posted"].slice(2)}
+      </td>
       <td>{data["location"]}</td>
       <td>
-        <details>
-          <summary>Details</summary>
+        <details open={openDetails[data["_id"]["$oid"]]}>
+          <summary onClick={toggleDetails(data["_id"]["$oid"])}>
+            Details
+          </summary>
           <div className="detailRow">
             <label htmlFor="dateApplied">Date Applied</label>
-            <input className="detailBox" name="dateApplied" type="date" onChange={handleDateApplied} value={dateApplied} />
+            <input
+              className="detailBox"
+              name="dateApplied"
+              type="date"
+              onChange={handleDateApplied}
+              value={dateApplied}
+            />
           </div>
           <div className="detailRow">
             <label htmlFor="referral">Referral</label>
-            <input type="checkbox" name="referral" onChange={handleReferral} checked={referral}></input>
+            <input
+              type="checkbox"
+              name="referral"
+              onChange={handleReferral}
+              checked={referral}
+            ></input>
           </div>
           <div className="detailRow">
             <label htmlFor="onlineAssessment">Online Assessment</label>
-            <input type="checkbox" name="onlineAssessment" onChange={handleOA} checked={OA}></input>
+            <input
+              type="checkbox"
+              name="onlineAssessment"
+              onChange={handleOA}
+              checked={OA}
+            ></input>
+          </div>
+          <div className="detailRow">
+            <label htmlFor="digitalInterview">Digital Interview</label>
+            <input
+              type="checkbox"
+              name="digitalInterview"
+              onChange={handleDigitalInterview}
+              checked={digitalInterview}
+            ></input>
           </div>
           <div className="detailRow">
             <label htmlFor="phoneScreen">Phone Screen</label>
-            <input type="checkbox" name="phoneScreen" onChange={handlePhoneScreen} checked={phoneScreen}></input>
+            <input
+              type="checkbox"
+              name="phoneScreen"
+              onChange={handlePhoneScreen}
+              checked={phoneScreen}
+            ></input>
           </div>
           <div className="detailRow">
             <label htmlFor="interview">Interview Round</label>
-            <select className="detailBox" name="interview" onChange={handleInterviewRound} value={interviewRound}>
+            <select
+              className="detailBox"
+              name="interview"
+              onChange={handleInterviewRound}
+              value={interviewRound}
+            >
               <option></option>
               <option>One</option>
               <option>Two</option>
@@ -180,7 +296,12 @@ const TableRow = ({data, filteredInternships, setFilteredInternships, setInterns
           </div>
           <div className="detailRow">
             <label htmlFor="result">Result</label>
-            <select className="detailBox" name="interview" onChange={handleResult} value={result}>
+            <select
+              className="detailBox"
+              name="interview"
+              onChange={handleResult}
+              value={result}
+            >
               <option></option>
               <option>No Response</option>
               <option>Rejection</option>

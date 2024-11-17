@@ -5,7 +5,7 @@ def script():
     mongo = PyMongo_DB()
     db = mongo.get_database()
     collection = db["internships-2025"]
-    collection.update_many({}, {'$set': {"remove": False}})
+    collection.update_many({}, {'$set': {"digital-interview": False}})
 
 
 if __name__ == "__main__":
