@@ -22,7 +22,7 @@ const SearchBar = ({ internships, setFilteredInternships, setOpenDetails }) => {
       setFilteredInternships(filteredData);
     }
     setOpenDetails({});
-  }, [searchTerm, internships, setFilteredInternships]);
+  }, [searchTerm, internships, setFilteredInternships, setOpenDetails]);
 
   return (
     <div>

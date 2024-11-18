@@ -76,7 +76,6 @@ function App() {
     setTopCompanies(sortApps(totalApps, "company"));
     setTopPositions(sortApps(totalApps, "position"));
     setTopLocations(sortApps(totalApps, "location"));
-    console.log(topPositions);
   }, [totalApps]);
 
   return (
