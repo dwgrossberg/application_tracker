@@ -21,8 +21,11 @@ const SearchBar = ({ internships, setFilteredInternships, setOpenDetails }) => {
       });
       setFilteredInternships(filteredData);
     }
+  }, [searchTerm, internships, setFilteredInternships]);
+
+  useEffect(() => {
     setOpenDetails({});
-  }, [searchTerm, internships, setFilteredInternships, setOpenDetails]);
+  }, [searchTerm, setOpenDetails]);
 
   return (
     <div>
