@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MoreRows from "../components/MoreRows";
 import SearchBar from "../components/SearchBar";
 import Table from "../components/Table";

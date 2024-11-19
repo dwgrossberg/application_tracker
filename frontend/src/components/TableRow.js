@@ -9,16 +9,24 @@ const TableRow = ({
   openDetails,
   setOpenDetails,
 }) => {
-  const [appliedStatus, setAppliedStatus] = useState(data["applied"]);
-  const [dateApplied, setDateApplied] = useState(data["date-applied"]);
-  const [referral, setReferral] = useState(data["referral"]);
-  const [OA, setOA] = useState(data["online-assessment"]);
-  const [phoneScreen, setPhoneScreen] = useState(data["phone-screen"]);
-  const [digitalInterview, setDigitalInterview] = useState(
-    data["digital-interview"]
+  const [appliedStatus, setAppliedStatus] = useState(
+    data ? data["applied"] : ""
   );
-  const [interviewRound, setInterviewRound] = useState(data["interview-round"]);
-  const [result, setResult] = useState(data["result"]);
+  const [dateApplied, setDateApplied] = useState(
+    data ? data["date-applied"] : ""
+  );
+  const [referral, setReferral] = useState(data ? data["referral"] : "");
+  const [OA, setOA] = useState(data ? data["online-assessment"] : "");
+  const [phoneScreen, setPhoneScreen] = useState(
+    data ? data["phone-screen"] : ""
+  );
+  const [digitalInterview, setDigitalInterview] = useState(
+    data ? data["digital-interview"] : ""
+  );
+  const [interviewRound, setInterviewRound] = useState(
+    data ? data["interview-round"] : ""
+  );
+  const [result, setResult] = useState(data ? data["result"] : "");
 
   useEffect(() => {
     setAppliedStatus(data["applied"]);
@@ -69,11 +77,12 @@ const TableRow = ({
     }
   };
 
-  const toggleDetails = (rowId) => {
-    setOpenDetails((prevOpenDetails) => ({
-      ...prevOpenDetails,
-      [rowId]: !prevOpenDetails[rowId],
-    }));
+  const toggleDetails = (e) => {
+    e.preventDefault();
+    setOpenDetails({
+      ...openDetails,
+      [data["_id"]["$oid"]]: !openDetails[data["_id"]["$oid"]],
+    });
   };
 
   const handleCheckApplied = () => {
@@ -211,6 +220,7 @@ const TableRow = ({
           type="checkbox"
           onChange={handleCheckApplied}
           checked={appliedStatus}
+          value={appliedStatus}
         ></input>
       </td>
       <td>{data["company"]}</td>
@@ -229,9 +239,7 @@ const TableRow = ({
       <td>{data["location"]}</td>
       <td>
         <details open={openDetails[data["_id"]["$oid"]]}>
-          <summary onClick={toggleDetails(data["_id"]["$oid"])}>
-            Details
-          </summary>
+          <summary onClick={toggleDetails}>Details</summary>
           <div className="detailRow">
             <label htmlFor="dateApplied">Date Applied</label>
             <input
@@ -249,6 +257,7 @@ const TableRow = ({
               name="referral"
               onChange={handleReferral}
               checked={referral}
+              value={referral}
             ></input>
           </div>
           <div className="detailRow">
@@ -258,6 +267,7 @@ const TableRow = ({
               name="onlineAssessment"
               onChange={handleOA}
               checked={OA}
+              value={OA}
             ></input>
           </div>
           <div className="detailRow">
@@ -267,6 +277,7 @@ const TableRow = ({
               name="digitalInterview"
               onChange={handleDigitalInterview}
               checked={digitalInterview}
+              value={digitalInterview}
             ></input>
           </div>
           <div className="detailRow">
@@ -276,6 +287,7 @@ const TableRow = ({
               name="phoneScreen"
               onChange={handlePhoneScreen}
               checked={phoneScreen}
+              value={phoneScreen}
             ></input>
           </div>
           <div className="detailRow">

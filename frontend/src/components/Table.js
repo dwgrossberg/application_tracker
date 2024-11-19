@@ -3,7 +3,7 @@ import CaretDown from "../assets/caret-down.svg";
 import CaretUpGrey from "../assets/caret-up-grey.svg";
 import CaretDownGrey from "../assets/caret-down-grey.svg";
 import TableRow from "./TableRow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Table = ({
   filteredInternships,
@@ -172,19 +172,20 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {filteredInternships.slice(0, rows).map((item, idx) => {
-          return (
-            <TableRow
-              key={idx}
-              data={item}
-              filteredInternships={filteredInternships}
-              setFilteredInternships={setFilteredInternships}
-              setInternships={setInternships}
-              openDetails={openDetails}
-              setOpenDetails={setOpenDetails}
-            />
-          );
-        })}
+        {filteredInternships &&
+          filteredInternships.slice(0, rows).map((item, idx) => {
+            return (
+              <TableRow
+                key={idx}
+                data={item}
+                filteredInternships={filteredInternships}
+                setFilteredInternships={setFilteredInternships}
+                setInternships={setInternships}
+                openDetails={openDetails}
+                setOpenDetails={setOpenDetails}
+              />
+            );
+          })}
       </tbody>
     </table>
   );
