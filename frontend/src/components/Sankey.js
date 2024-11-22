@@ -4,7 +4,7 @@ const Sankey = ({ totalApps }) => {
   console.log(totalApps);
   const options = {
     sankey: {
-      node: { label: { color: "#FFFFFF", fontSize: 14 } },
+      node: { label: { color: "#FFFFFF", fontSize: 14 }, nodePadding: 50 },
     },
   };
 

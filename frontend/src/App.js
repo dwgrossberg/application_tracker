@@ -23,6 +23,8 @@ function App() {
   const [topCompanies, setTopCompanies] = useState([]);
   const [topPositions, setTopPositions] = useState([]);
   const [topLocations, setTopLocations] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
 
   const sortApps = (totalApps, item) => {
     const freq = {};
@@ -81,7 +83,7 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
-        <LogLink />
+        <LogLink loggedIn={loggedIn} setLoggedIn={setLoggedIn} email={email} />
         <div className="body">
           <div id="top"></div>
           <Header />
@@ -129,10 +131,24 @@ function App() {
             />
           </Routes>
           <Routes>
-            <Route exact path="/login" element={<Login />} />
+            <Route
+              exact
+              path="/login"
+              element={
+                <Login
+                  setLoggedIn={setLoggedIn}
+                  email={email}
+                  setEmail={setEmail}
+                />
+              }
+            />
           </Routes>
           <Routes>
-            <Route exact path="/login/new-account" element={<NewAccount />} />
+            <Route
+              exact
+              path="/login/new-account"
+              element={<NewAccount email={email} setEmail={setEmail} />}
+            />
           </Routes>
           <Footer />
         </div>
