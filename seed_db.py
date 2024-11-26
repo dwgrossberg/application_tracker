@@ -7,7 +7,7 @@ def update_db():
     url = 'https://application-scraper-4f768c7eaca5.herokuapp.com/internships'
     internships = requests.get(url).content
     db = PyMongo_DB()
-    db.insert_docs(json.loads(internships)[0][1:])
+    db.insert_docs(json.loads(internships))
 
 
 if __name__ == '__main__':

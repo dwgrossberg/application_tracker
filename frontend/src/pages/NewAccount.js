@@ -46,6 +46,7 @@ const NewAccount = ({ email, setEmail }) => {
 
   const handleClick = () => {
     new_user({
+      username: email,
       email: email,
       password: password,
     });
