@@ -46,7 +46,11 @@ const Statistics = ({
         <div className="statisticsCol">
           <div className="statisticsCell">
             <div className="statisticLabel">Online Assessments</div>
-            <div className="statistic">{OAs}</div>
+            {OAs ? (
+              <div className="statistic">{OAs}</div>
+            ) : (
+              <div className="statistic">0</div>
+            )}
           </div>
           {topPositions && (
             <div className="statisticsCell">
@@ -70,7 +74,11 @@ const Statistics = ({
         <div className="statisticsCol">
           <div className="statisticsCell">
             <div className="statisticLabel">Interviews</div>
-            <div className="statistic">{interviews}</div>
+            {interviews ? (
+              <div className="statistic">{interviews}</div>
+            ) : (
+              <div className="statistic">0</div>
+            )}
           </div>
           {topLocations && (
             <div className="statisticsCell">
