@@ -52,24 +52,22 @@ const Statistics = ({
               <div className="statistic">0</div>
             )}
           </div>
-          {topPositions && (
-            <div className="statisticsCell">
-              <div className="statisticLabel">Top Positions</div>
-              {topPositions && topPositions.length > 0 && (
-                <div className="statisticText">1. {topPositions[0][0]}</div>
-              )}
-              {topPositions && topPositions.length > 1 && (
-                <div className="statisticText">
-                  2. {topPositions.length > 1 && topPositions[1][0]}
-                </div>
-              )}
-              {topPositions && topPositions.length > 2 && (
-                <div className="statisticText">
-                  3. {topPositions.length > 2 && topPositions[2][0]}
-                </div>
-              )}
-            </div>
-          )}
+          <div className="statisticsCell">
+            <div className="statisticLabel">Top Positions</div>
+            {topPositions && topPositions.length > 0 && (
+              <div className="statisticText">1. {topPositions[0][0]}</div>
+            )}
+            {topPositions && topPositions.length > 1 && (
+              <div className="statisticText">
+                2. {topPositions.length > 1 && topPositions[1][0]}
+              </div>
+            )}
+            {topPositions && topPositions.length > 2 && (
+              <div className="statisticText">
+                3. {topPositions.length > 2 && topPositions[2][0]}
+              </div>
+            )}
+          </div>
         </div>
         <div className="statisticsCol">
           <div className="statisticsCell">
@@ -80,26 +78,24 @@ const Statistics = ({
               <div className="statistic">0</div>
             )}
           </div>
-          {topLocations && (
-            <div className="statisticsCell">
-              <div className="statisticLabel">Top Locations</div>
-              {topLocations && topLocations.length > 0 && (
-                <div className="statisticText">
-                  1. {topLocations.length > 0 && topLocations[0][0]}
-                </div>
-              )}
-              {topLocations && topLocations.length > 1 && (
-                <div className="statisticText">
-                  2. {topLocations.length > 1 && topLocations[1][0]}
-                </div>
-              )}
-              {topLocations && topLocations.length > 2 && (
-                <div className="statisticText">
-                  3. {topLocations.length > 2 && topLocations[2][0]}
-                </div>
-              )}
-            </div>
-          )}
+          <div className="statisticsCell">
+            <div className="statisticLabel">Top Locations</div>
+            {topLocations && topLocations.length > 0 && (
+              <div className="statisticText">
+                1. {topLocations.length > 0 && topLocations[0][0]}
+              </div>
+            )}
+            {topLocations && topLocations.length > 1 && (
+              <div className="statisticText">
+                2. {topLocations.length > 1 && topLocations[1][0]}
+              </div>
+            )}
+            {topLocations && topLocations.length > 2 && (
+              <div className="statisticText">
+                3. {topLocations.length > 2 && topLocations[2][0]}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
