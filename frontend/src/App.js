@@ -72,7 +72,6 @@ function App() {
   const postData = async (data) => {
     if (data) {
       try {
-        console.log(data);
         const response = await fetch(
           `https://application-statistics-5963b0807a64.herokuapp.com/statistics`,
           {

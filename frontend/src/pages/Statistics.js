@@ -8,7 +8,6 @@ const Statistics = ({
   topPositions,
   topLocations,
 }) => {
-  console.log(applications);
   return (
     <div className="statisticsWrapper">
       <NavLink to="visualize">
