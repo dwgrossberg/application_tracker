@@ -322,7 +322,7 @@ const TableRow = ({
               <option>Signed Offer</option>
             </select>
           </div>
-          <div className="detailRow">
+          <div className="detailRow deleteButton">
             <button onClick={confirmDelete}>Remove Listing</button>
           </div>
         </details>

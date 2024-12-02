@@ -99,6 +99,7 @@ def update_referral(_id):
         return jsonify({'error': str(e)}), 404
 
 
+# Link to Sirus' microservice
 auth_url = 'https://glacial-plains-67311-bdf01ddd306c.herokuapp.com/'
 
 

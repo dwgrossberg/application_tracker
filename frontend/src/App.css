@@ -38,6 +38,10 @@ thead th {
   min-width: 225px;
 }
 
+thead th:first-child {
+  min-width: 170px;
+}
+
 .applied td:not(:first-child, :last-child) {
   opacity: 50%;
   text-decoration: line-through;
@@ -85,6 +89,10 @@ details[open] summary {
 
 details label {
   width: 6em;
+}
+
+.deleteButton {
+  margin-bottom: 1em;
 }
 
 select {

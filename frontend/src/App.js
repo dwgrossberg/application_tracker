@@ -25,6 +25,7 @@ function App() {
   const [topLocations, setTopLocations] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
+  const [sortedApps, setSortedApps] = useState({});
 
   const sortApps = (totalApps, item) => {
     const freq = {};
@@ -67,18 +68,50 @@ function App() {
     );
   }, [filteredInternships]);
 
+  // Post data to statistics microservice to get response
+  const postData = async (data) => {
+    if (data) {
+      try {
+        console.log(data);
+        const response = await fetch(
+          `https://application-statistics-5963b0807a64.herokuapp.com/statistics`,
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response.status === 200) {
+          const data = await response.json();
+          console.log(`Information posted.`, data);
+          setSortedApps(data);
+        } else {
+          const errMessage = await response.json();
+          console.log(
+            `Unable to edit information: ${response.status}. ${errMessage.Error}`
+          );
+        }
+      } catch (e) {
+        if (!(e instanceof Error)) {
+          e = new Error(e);
+        }
+        console.error(e.message);
+      }
+    }
+  };
+
   useEffect(() => {
-    setApplications(totalApps.length);
-    setOAs(
-      totalApps.filter((item) => item["online-assessment"] === true).length
-    );
-    setInterviews(
-      totalApps.filter((item) => item["interview-round"] !== null).length
-    );
-    setTopCompanies(sortApps(totalApps, "company"));
-    setTopPositions(sortApps(totalApps, "position"));
-    setTopLocations(sortApps(totalApps, "location"));
+    postData(totalApps);
   }, [totalApps]);
+
+  useEffect(() => {
+    setApplications(sortedApps["Applications"]);
+    setOAs(sortedApps["OA"]);
+    setInterviews(sortedApps["Interview"]);
+    setTopCompanies(sortedApps["Company"]);
+    setTopPositions(sortedApps["Position"]);
+    setTopLocations(sortedApps["Location"]);
+  }, [sortedApps]);
 
   return (
     <div className="App">
