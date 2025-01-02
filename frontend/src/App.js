@@ -68,6 +68,7 @@ function App() {
   }, [filteredInternships]);
 
   useEffect(() => {
+    console.log(totalApps);
     setApplications(totalApps.length);
     setOAs(
       totalApps.filter((item) => item["online-assessment"] === true).length
