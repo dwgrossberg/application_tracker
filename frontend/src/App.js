@@ -62,13 +62,13 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log(totalApps);
     setTotalApps(
       filteredInternships.filter((item) => item["applied"] === true)
     );
   }, [filteredInternships]);
 
   useEffect(() => {
-    console.log(totalApps);
     setApplications(totalApps.length);
     setOAs(
       totalApps.filter((item) => item["online-assessment"] === true).length
