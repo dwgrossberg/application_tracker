@@ -29,7 +29,7 @@ class PyMongo_DB:
                 "link": internship[2],
                 "location": internship[3],
                 "date-posted":
-                    datetime.strptime(internship[4], '%b %d').
+                    datetime.strptime(internship[4], '%b %d %y').
                     strftime('%m %d'),
                 "applied": False,
                 "online-assessment": False,
