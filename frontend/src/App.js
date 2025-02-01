@@ -54,7 +54,7 @@ function App() {
         console.log(data);
         const dataToKeep = data.filter((item) => item["remove"] === false);
         const sortedDataToKeep = dataToKeep.sort((a, b) => {
-          return b["date-posted"].localeCompare(a["date-posted"]);
+          return new Date(b["date-posted"]) - new Date(a["date-posted"]);
         });
         setInternships(sortedDataToKeep);
         setFilteredInternships(sortedDataToKeep);

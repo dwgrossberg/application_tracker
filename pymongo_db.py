@@ -22,7 +22,7 @@ class PyMongo_DB:
         collection = db["internships-2025"]
         collection.create_index([("company", 1), ("position", 1), ("link", 1),
                                  ("location", 1)], unique=True)
-        for internship in internships:
+        for internship in internships[:-1]:
             data = {
                 "company": internship[0],
                 "position": internship[1],

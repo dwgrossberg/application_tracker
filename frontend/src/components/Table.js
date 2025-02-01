@@ -82,18 +82,14 @@ const Table = ({
       e.target.alt = "Down Caret";
       e.target.src = CaretDown;
       const sorted = [...filteredInternships].sort((a, b) => {
-        if (b["date-posted"] < a["date-posted"]) return -1;
-        if (b["date-posted"] > a["date-posted"]) return 1;
-        return 0;
+        return new Date(b["date-posted"]) - new Date(a["date-posted"]);
       });
       setFilteredInternships(sorted);
     } else {
       e.target.alt = "Up Caret";
       e.target.src = CaretUp;
       const sorted = [...filteredInternships].sort((a, b) => {
-        if (a["date-posted"] < b["date-posted"]) return -1;
-        if (a["date-posted"] > b["date-posted"]) return 1;
-        return 0;
+        return new Date(a["date-posted"]) - new Date(b["date-posted"]);
       });
       setFilteredInternships(sorted);
     }
@@ -120,7 +116,7 @@ const Table = ({
 
   return (
     <table>
-      <caption>2025 Internships</caption>
+      <caption>Internship Listings</caption>
       <thead>
         <tr>
           <th>
